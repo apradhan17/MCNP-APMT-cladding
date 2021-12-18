@@ -1,0 +1,176 @@
+Kanthal Apmt cladding
+c      -----------------------------------------------------------------
+c      Arnold Pradhan
+c      -----------------------------------------------------------------
+c      rev.11.30.2021
+c      -----------------------------------------------------------------
+c
+c      ------------------------- MODEL NOTES ---------------------------
+c
+c      This is a mcnp file for calculating fluxes for evaluating radiation
+c      damage on zircaloy2.
+c      The origin is 000.
+c
+c      ----------------------- END MODEL NOTES -------------------------
+c
+c      -----------------------------------------------------------------
+c
+c      ------------------------- START CARDS ---------------------------
+c
+c      -----------
+c      cell cards
+c      -----------
+c
+c      ---
+100    1  -15.1      -10 -11 12      imp:n=1       $fuel pellet Cf252
+c      ---
+101    2  -1.225E-03  10 -13 -11 12  imp:n=1       $air gap
+c      ---
+102    3  -6.56      -16 13 -11 12   imp:n=1       $cladding material
+c      ---
+c
+c      ---
+150    0               16:11:-12       imp:n=0        $void
+c      ---
+c
+c      -----------
+c      end cell cards
+c      -----------
+
+c      -----------
+c      surface cards
+c      -----------
+c
+c      ---
+c      geometry
+c      ---
+10     CZ  0.5207    $fuel pellet
+c      ---
+11     PZ  202.8825  $Top
+c      ---
+12     PZ -202.8825  $Base
+c      ---
+13     CZ  0.53215  $innerradius of cladding
+c      ---
+16     CZ  0.6134  $outerradius of cladding
+c      end source geometry
+c      ---
+c
+c      -----------
+c      end surface cards
+c      -----------
+
+c      -----------
+c      data cards
+c      -----------
+c
+c      ---
+c      physics
+c      ---
+c
+c      ---
+MODE   n
+c      ---
+c
+c      ---
+c      end physics
+c      ---
+c
+c      ---
+c      source
+c      ---
+c
+c      ---
+SDEF   CEL 100 POS 0 0 0 RAD d1 EXT d2 ERG=14
+SI1    0   0.527  $sourceradius
+SI2    202.8825   $position for source height c      ---
+c
+c      ---
+c      end source
+c      ---
+c
+c      ---
+c      tally
+c      ---
+c
+c      ---
+c      surface flux
+c      ---
+FC2    Cladding inner wall
+F2:N   13
+c
+FC12   Cladding outer wall
+F12:N  16
+c      ----
+c
+c     volume flux
+c     ----
+FC4   cladding
+F4:N  102
+c      ---
+c      end tally
+c      ---
+c
+c      ---
+c      materials
+c      ---
+c
+c      ---
+c      Californium density as 15.1
+M1     98252.66c  -1 $Cf252
+c      ---
+c
+c      ---
+c      Air
+M2     6000.70c    -0.000124           $C
+       7014.70c    -0.755268           $N
+       8016.66c    -0.231781           $O
+       18000.42c   -0.012827           $Ar
+c      ---
+c
+c      ---
+c      Zircaloy2
+M3     26056.66c     -0.0012       $Fe
+       50118.70c     -0.015        $Sn
+       24050.71c     -0.001        $Cr
+       40092.66c     -0.9822       $Zr
+       28059.70c     -0.0005       $Ni
+       8016.70c      -0.0001       $O
+c      ---
+c      end materials
+c      ---
+c
+c      ---
+c      weight window generators
+c      ---
+c      WWG    XX XXX 0 j j j j 0
+c      ---
+c
+c      ---
+c      weight window generators
+c      ---
+c      WWG    XX XXX 0 j j j j 0
+c      ---
+c
+c      ---
+c      output
+c      ---
+PRINT  10 30 38 40 50 110 117 118 120 126 128 160 161 162 170
+PRDMP  1000000 -10
+c      ---
+c      end output
+c      ---
+c
+c      ---
+c      particle history
+c      ---
+NPS    500000
+c      ---
+c      end history
+c      ---
+c      -----------
+c      end data cards
+c      -----------
+c      ----------- END CARDS -----------
+c
+c      -----------------------------------------------------------------
